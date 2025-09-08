@@ -1172,6 +1172,12 @@ clean_tmp() {
     # Move Armbian files to the output directory
     mv -f ${armbian_filename}* -t ${armbian_outputpath}
 
+    # ThomasLee
+    # split file for uploading
+    pushd ${armbian_outputpath}
+    split -n2 -d ${armbian_filename}.gz ${armbian_filename}.gz
+    popd
+
     cd ${current_path}
     rm -rf ${tmp_dir} && sync
 }
@@ -1222,6 +1228,7 @@ loop_rebuild() {
     done
 }
 
+set -x
 # Show welcome message
 echo -e "${STEPS} Welcome to Rebuild Armbian!"
 echo -e "${INFO} Server running on Ubuntu: [ Release: ${host_release} / Host: ${arch_info} ] \n"

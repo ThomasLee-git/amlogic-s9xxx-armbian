@@ -39,7 +39,7 @@ inputs:
   armbian_size:
     description: "Set armbian rootfs size(Unit: MiB)."
     required: false
-    default: ""
+    default: "6000"
   builder_name:
     description: "Set Armbian builder signature."
     required: false
@@ -168,6 +168,7 @@ runs:
             [[ -n "${{ inputs.armbian_fstype }}" ]] && make_command="${make_command} -t ${{ inputs.armbian_fstype }}"
             [[ -n "${{ inputs.armbian_size }}" ]] && make_command="${make_command} -s ${{ inputs.armbian_size }}"
             [[ -n "${{ inputs.builder_name }}" ]] && make_command="${make_command} -n ${{ inputs.builder_name }}"
+            echo -e "ThomasLee: ${make_command}"
             sudo ./rebuild ${make_command}
 
             cd ${{ github.action_path }}/${armbian_filepath}
